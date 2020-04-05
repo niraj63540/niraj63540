@@ -1,0 +1,88 @@
+import numpy as np
+n=int(input())
+for i in range(n):
+    k=int(input())
+    a=[]
+    for j in range(k):
+        l=input()
+        a.append([int(b) for b in l.split()])
+    count=0;
+   
+   
+    for j in range(k):
+        if len(set(a[j]))!=k:
+            count+=1
+           
+    count1=0
+    for j in range(k):
+        l=[]
+        for m in range(k):
+            l.append(a[m][j])
+        if len(set(l))!=k:
+            count1+=1
+    a=np.array(a)
+    print("Case #"+str(i+1)+":",a.trace(),count,count1)
+    
+    
+    
+    
+    
+    
+    
+    t = int(input())
+for j in range(t):
+    s = input()
+    new_s =""
+    remain_brac = 0
+    for i in range(0,len(s)):
+        if i == 0:
+            new_s+=("("*int(s[i])+s[i])
+            remain_brac+=int(s[i])
+        else:
+            if int(s[i]) == int(s[i-1]):
+                new_s+=s[i]
+            elif int(s[i]) < int(s[i-1]):
+                remain_brac -= (int(s[i-1])-int(s[i]))
+                new_s+=(")"*(int(s[i-1])-int(s[i]))+s[i])
+            else:
+                remain_brac += (int(s[i])-int(s[i-1]))
+                new_s+=("("*(int(s[i])-int(s[i-1]))+s[i])
+    new_s+=(")"*remain_brac)
+    print("Case #"+str(j+1)+": "+new_s)
+    
+    
+    
+    
+    
+    
+    
+    def f(raw_arr):
+    arr = []
+    for i in range(len(raw_arr)):
+        arr.append((raw_arr[i][0], raw_arr[i][1], i))
+    arr.sort()
+    c_end = 0
+    j_end = 0
+    res_arr = []
+    for start, end, idx in arr:
+        if start < c_end and start < j_end:
+            return "IMPOSSIBLE"
+        if start >= c_end:
+            res_arr.append(('C', idx))
+            c_end = end
+        else:
+            res_arr.append(('J', idx))
+            j_end = end
+    res = ''
+    for c, idx in sorted(res_arr, key=lambda x: x[1]):
+        res += c
+    return res
+T = int(input())
+for t in range(1, T + 1):
+    N = int(input())
+    arr = []
+    for _ in range(N):
+        interval = [int(s) for s in input().split(" ")]
+        arr.append(interval)
+    res = f(arr)
+    print("Case #{}: {}".format(t, res))
